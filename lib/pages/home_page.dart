@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/config/service_url.dart';
 import 'package:flutter_shop/widgets/custom_ad_banner.dart';
 import 'package:flutter_shop/widgets/custom_swiper.dart';
 import 'package:flutter_shop/widgets/custom_top_navigator.dart';
+import 'package:flutter_shop/widgets/floor.dart';
+import 'package:flutter_shop/widgets/home_below_content.dart';
 import 'package:flutter_shop/widgets/leader_phone.dart';
 import 'package:flutter_shop/widgets/recommend.dart';
 import '../service/service_method.dart';
@@ -46,7 +49,13 @@ class _HomePageState extends State<HomePage>
           title: Text('测试'),
         ),
         body: FutureBuilder(
-          future: getHomePageContent(),
+          future: request(
+            homePageContent,
+            formData: {
+              'lon': '115.02932',
+              'lat': '35.76189',
+            },
+          ),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var data = json.decode(snapshot.data.toString());
@@ -58,6 +67,12 @@ class _HomePageState extends State<HomePage>
                   .cast();
               List<Map> recommendDataList =
                   (data['data']['recommend'] as List).cast();
+              List<Map> floor1DataList =
+                  (data['data']['floor1'] as List).cast();
+              List<Map> floor2DataList =
+                  (data['data']['floor2'] as List).cast();
+              List<Map> floor3DataList =
+                  (data['data']['floor3'] as List).cast();
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -78,6 +93,28 @@ class _HomePageState extends State<HomePage>
                     Recommend(
                       recommendList: recommendDataList,
                     ),
+                    FloorTitle(
+                      floorTitleImgUrl: data['data']['floor1Pic']
+                          ['PICTURE_ADDRESS'],
+                    ),
+                    FloorContent(
+                      floorGoodsList: floor1DataList,
+                    ),
+                    FloorTitle(
+                      floorTitleImgUrl: data['data']['floor2Pic']
+                          ['PICTURE_ADDRESS'],
+                    ),
+                    FloorContent(
+                      floorGoodsList: floor2DataList,
+                    ),
+                    FloorTitle(
+                      floorTitleImgUrl: data['data']['floor3Pic']
+                          ['PICTURE_ADDRESS'],
+                    ),
+                    FloorContent(
+                      floorGoodsList: floor3DataList,
+                    ),
+                    HomeBelowContent(),
                   ],
                 ),
               );

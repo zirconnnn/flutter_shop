@@ -24,7 +24,7 @@ class FloorContent extends StatelessWidget {
       child: Column(
         children: [
           _firstRow(),
-          _otherGoods()
+          _otherGoods(),
         ],
       ),
     );
@@ -37,25 +37,33 @@ class FloorContent extends StatelessWidget {
         onTap: () {
           print('点击了楼层商品');
         },
-        child: Image.network(goods['image'],),
+        child: Image.network(
+          goods['image'],
+        ),
       ),
     );
   }
 
   Widget _firstRow() {
-    return Row(children: [
-      _goodsItem(floorGoodsList[0]),
-      Column(children: [
-        _goodsItem(floorGoodsList[1]),
-        _goodsItem(floorGoodsList[2]),
-      ],)
-    ],);
+    return Row(
+      children: [
+        _goodsItem(floorGoodsList[0]),
+        Column(
+          children: [
+            _goodsItem(floorGoodsList[1]),
+            _goodsItem(floorGoodsList[2]),
+          ],
+        )
+      ],
+    );
   }
 
   Widget _otherGoods() {
-    return Row(children: [
-      _goodsItem(floorGoodsList[3]),
-      _goodsItem(floorGoodsList[4]),
-    ],);
+    return Row(
+      children: [
+        _goodsItem(floorGoodsList[3]),
+        _goodsItem(floorGoodsList[4]),
+      ],
+    );
   }
 }
