@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_shop/config/service_url.dart';
 import 'package:flutter_shop/widgets/custom_ad_banner.dart';
 import 'package:flutter_shop/widgets/custom_swiper.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage>
   bool get wantKeepAlive => true;
 
   String homeContent = '正在请求中...';
+  int page = 1;
 
   // @override
   // void initState() {
@@ -73,8 +75,8 @@ class _HomePageState extends State<HomePage>
                   (data['data']['floor2'] as List).cast();
               List<Map> floor3DataList =
                   (data['data']['floor3'] as List).cast();
-              return SingleChildScrollView(
-                child: Column(
+              return EasyRefresh(
+                child: ListView(
                   children: [
                     CustomSwiper(
                       swiperDataList: swiperDataList,
@@ -114,9 +116,14 @@ class _HomePageState extends State<HomePage>
                     FloorContent(
                       floorGoodsList: floor3DataList,
                     ),
-                    HomeBelowContent(),
+                    HomeBelowContent(page),
                   ],
                 ),
+                onLoad: () async {
+                  setState(() {
+                    page++;
+                  });
+                },
               );
             } else {
               return Center(

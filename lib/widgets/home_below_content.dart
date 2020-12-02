@@ -6,14 +6,16 @@ import 'package:flutter_shop/service/service_method.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
 class HomeBelowContent extends StatefulWidget {
-  HomeBelowContent({Key key}) : super(key: key);
+  final int page;
+  HomeBelowContent(this.page, {Key key}) : super(key: key);
 
   @override
-  _HomeBelowContentState createState() => _HomeBelowContentState();
+  _HomeBelowContentState createState() => _HomeBelowContentState(page);
 }
 
 class _HomeBelowContentState extends State<HomeBelowContent> {
-  int page = 1;
+  _HomeBelowContentState(this.page) : super();
+  final int page;
   List<Map> dataList = [];
   @override
   Widget build(BuildContext context) {
