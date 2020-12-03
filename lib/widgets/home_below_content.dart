@@ -2,23 +2,24 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/config/service_url.dart';
+import 'package:flutter_shop/pages/home_page.dart';
 import 'package:flutter_shop/service/service_method.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:provider/provider.dart';
 
 class HomeBelowContent extends StatefulWidget {
-  final int page;
-  HomeBelowContent(this.page, {Key key}) : super(key: key);
+  HomeBelowContent({Key key}) : super(key: key);
 
   @override
-  _HomeBelowContentState createState() => _HomeBelowContentState(page);
+  _HomeBelowContentState createState() => _HomeBelowContentState();
 }
 
 class _HomeBelowContentState extends State<HomeBelowContent> {
-  _HomeBelowContentState(this.page) : super();
-  final int page;
   List<Map> dataList = [];
   @override
   Widget build(BuildContext context) {
+    // int page = context.watch<PageCountModel>().page;
+    int page = context.select((PageCountModel value) => value.page);
     return FutureBuilder(
       future: request(
         homePageBelowContent,
@@ -29,7 +30,12 @@ class _HomeBelowContentState extends State<HomeBelowContent> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var data = json.decode(snapshot.data.toString());
-          dataList.addAll((data['data'] as List).cast());
+          if (data['data'] == null) {
+            Provider.of<PageCountModel>(context, listen: false)
+                .setupHasMoreValue(false);
+          } else {
+            dataList.addAll((data['data'] as List).cast());
+          }
           return Column(
             children: [
               _title(),

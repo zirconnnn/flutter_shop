@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'dart:async';
 import '../config/service_url.dart';
+import 'package:dio/adapter.dart';
+import 'dart:io';
 
 // Future getHomePageContent() async {
 //   try {
@@ -24,9 +26,14 @@ import '../config/service_url.dart';
 
 Future request(url, {formData}) async {
   try {
-    print('开始获取数据............');
+    print('开始获取数据............$url formData: $formData');
     Response response;
     var dio = Dio();
+    // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (client) {
+    //   client.badCertificateCallback =
+    //       (X509Certificate cert, String host, int port) => true;
+    // };
     dio.options.contentType = 'application/x-www-form-urlencoded';
     if (formData == null) {
       response = await dio.post(servicePath[url]);

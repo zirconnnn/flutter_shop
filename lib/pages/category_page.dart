@@ -65,7 +65,6 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   }
 
   void _getCategory() async {
-    print('开始获取大类数据...');
     await request(getCategory).then((value) {
       var data = json.decode(value.toString());
       var category = CategoryBigListModel.fromJson(
