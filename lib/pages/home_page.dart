@@ -1,17 +1,18 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_shop/config/service_url.dart';
 import 'package:flutter_shop/widgets/custom_ad_banner.dart';
+import 'package:flutter_shop/widgets/custom_refresh_footer.dart';
 import 'package:flutter_shop/widgets/custom_swiper.dart';
 import 'package:flutter_shop/widgets/custom_top_navigator.dart';
 import 'package:flutter_shop/widgets/floor.dart';
 import 'package:flutter_shop/widgets/home_below_content.dart';
 import 'package:flutter_shop/widgets/leader_phone.dart';
 import 'package:flutter_shop/widgets/recommend.dart';
-import '../service/service_method.dart';
+import 'package:flutter_shop/service/service_method.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_shop/provider/page_count.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage>
           title: Text('测试'),
         ),
         body: ChangeNotifierProvider(
-          create: (_) => PageCountModel(),
+          create: (_) => PageCountProvider(),
           child: FutureBuilder(
             future: request(
               homePageContent,
@@ -79,15 +80,7 @@ class _HomePageState extends State<HomePage>
                 List<Map> floor3DataList =
                     (data['data']['floor3'] as List).cast();
                 return EasyRefresh(
-                  footer: ClassicalFooter(
-                    bgColor: Colors.white,
-                    textColor: Colors.pink,
-                    showInfo: false,
-                    loadReadyText: '上拉加载',
-                    loadingText: '加载中...',
-                    loadedText: '加载完成.',
-                    noMoreText: '没有更多了.',
-                  ),
+                  footer: customFooter,
                   child: ListView(
                     children: [
                       CustomSwiper(
@@ -134,7 +127,7 @@ class _HomePageState extends State<HomePage>
                   ),
                   onLoad: () async {
                     // await Future.delayed(Duration(seconds: 10));
-                    context.read<PageCountModel>().inc();
+                    context.read<PageCountProvider>().inc();
                   },
                 );
               } else {
@@ -147,25 +140,5 @@ class _HomePageState extends State<HomePage>
         ),
       ),
     );
-  }
-}
-
-class PageCountModel with ChangeNotifier {
-  int _pageCount = 1;
-  bool _hasMoreContent = true;
-  int get page => _pageCount;
-  bool get hasMoreContent => _hasMoreContent;
-
-  void inc() {
-    if (!_hasMoreContent) {
-      return;
-    }
-    _pageCount++;
-    notifyListeners();
-  }
-
-  void setupHasMoreValue(bool hasMoreValue) {
-    _hasMoreContent = hasMoreValue;
-    notifyListeners();
   }
 }

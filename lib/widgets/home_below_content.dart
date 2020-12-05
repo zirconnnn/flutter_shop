@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/config/service_url.dart';
-import 'package:flutter_shop/pages/home_page.dart';
+import 'package:flutter_shop/provider/page_count.dart';
 import 'package:flutter_shop/service/service_method.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class _HomeBelowContentState extends State<HomeBelowContent> {
   @override
   Widget build(BuildContext context) {
     // int page = context.watch<PageCountModel>().page;
-    int page = context.select((PageCountModel value) => value.page);
+    int page = context.select((PageCountProvider value) => value.page);
     return FutureBuilder(
       future: request(
         homePageBelowContent,
@@ -31,7 +31,7 @@ class _HomeBelowContentState extends State<HomeBelowContent> {
         if (snapshot.hasData) {
           var data = json.decode(snapshot.data.toString());
           if (data['data'] == null) {
-            Provider.of<PageCountModel>(context, listen: false)
+            Provider.of<PageCountProvider>(context, listen: false)
                 .setupHasMoreValue(false);
           } else {
             dataList.addAll((data['data'] as List).cast());
