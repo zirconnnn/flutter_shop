@@ -19,6 +19,7 @@ class CategoryGoodsList extends StatefulWidget {
 
 class _CategoryGoodsListState extends State<CategoryGoodsList> {
   var scrollController = ScrollController();
+  var refreshController = EasyRefreshController();
   @override
   Widget build(BuildContext context) {
     var data = context.watch<CategoryGoodsProvider>().categoryGoods;
@@ -28,6 +29,12 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       } catch (e) {
         print('first load $e');
       }
+    }
+    try {
+      refreshController.finishLoad(
+          noMore: context.watch<CategoryGoodsProvider>().noMore);
+    } catch (e) {
+      print('first load $e');
     }
     if (data.isEmpty) {
       return Center(
@@ -39,6 +46,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
           width: 570.w,
           // height: 1000.h,
           child: EasyRefresh(
+            controller: refreshController,
             footer: customFooter,
             child: ListView.builder(
               controller: scrollController,

@@ -4,10 +4,10 @@ import 'package:flutter_shop/beans/category_goods_list_bean.dart';
 class CategoryGoodsProvider with ChangeNotifier {
   List<CategoryGoodsItem> categoryGoods = [];
   int page = 1;
-  bool hasNoMore = false;
+  bool noMore = false;
 
   setupCategoryGoodsList(List<CategoryGoodsItem> goods) {
-    hasNoMore = false;
+    noMore = false;
     page = 2;
     categoryGoods.clear();
     if (goods != null && goods.isNotEmpty) {
@@ -18,11 +18,11 @@ class CategoryGoodsProvider with ChangeNotifier {
 
   appendCategoryGoodList(List<CategoryGoodsItem> goods) {
     if (goods != null && goods.isNotEmpty) {
-      hasNoMore = false;
+      noMore = false;
       page++;
       categoryGoods.addAll(goods);
     } else {
-      hasNoMore = true;
+      noMore = true;
     }
     notifyListeners();
   }
