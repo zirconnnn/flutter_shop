@@ -1,9 +1,9 @@
-class CategoryBigListModel {
+class CategoryBigListBean {
   List<Data> data;
 
-  CategoryBigListModel({this.data});
+  CategoryBigListBean({this.data});
 
-  CategoryBigListModel.fromJson(Map<String, dynamic> json) {
+  CategoryBigListBean.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = new List<Data>();
       json['data'].forEach((v) {

@@ -48,7 +48,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   void _getCategory() async {
     await request(getCategory).then((value) {
       var data = json.decode(value.toString());
-      var category = CategoryBigListModel.fromJson(data);
+      var category = CategoryBigListBean.fromJson(data);
       setState(() {
         list = category.data;
       });
@@ -104,7 +104,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     };
     request(getMallGoods, formData: formData).then((value) {
       var data = json.decode(value.toString());
-      CategoryGoodsListModel listModel = CategoryGoodsListModel.fromJson(data);
+      CategoryGoodsListBean listModel = CategoryGoodsListBean.fromJson(data);
       context
           .read<CategoryGoodsProvider>()
           .setupCategoryGoodsList(listModel.data);

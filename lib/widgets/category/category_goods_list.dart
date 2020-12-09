@@ -155,7 +155,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
     };
     request(getMallGoods, formData: formData).then((value) {
       var data = json.decode(value.toString());
-      CategoryGoodsListModel listModel = CategoryGoodsListModel.fromJson(data);
+      CategoryGoodsListBean listModel = CategoryGoodsListBean.fromJson(data);
       context
           .read<CategoryGoodsProvider>()
           .appendCategoryGoodList(listModel.data);

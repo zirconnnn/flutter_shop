@@ -1,9 +1,9 @@
-class CategoryGoodsListModel {
+class CategoryGoodsListBean {
   List<CategoryGoodsItem> data;
 
-  CategoryGoodsListModel({this.data});
+  CategoryGoodsListBean({this.data});
 
-  CategoryGoodsListModel.fromJson(Map<String, dynamic> json) {
+  CategoryGoodsListBean.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = new List<CategoryGoodsItem>();
       json['data'].forEach((v) {

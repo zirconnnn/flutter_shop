@@ -77,7 +77,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
     };
     request(getMallGoods, formData: formData).then((value) {
       var data = json.decode(value.toString());
-      CategoryGoodsListModel listModel = CategoryGoodsListModel.fromJson(data);
+      CategoryGoodsListBean listModel = CategoryGoodsListBean.fromJson(data);
       context
           .read<CategoryGoodsProvider>()
           .setupCategoryGoodsList(listModel.data);
