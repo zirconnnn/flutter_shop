@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/config/service_url.dart';
 import 'package:flutter_shop/provider/page_count.dart';
+import 'package:flutter_shop/routes/router_manager.dart';
 import 'package:flutter_shop/service/service_method.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,12 @@ class _HomeBelowContentState extends State<HomeBelowContent> {
     if (dataList != null && dataList.isNotEmpty) {
       List<Widget> listWidgets = dataList.map((e) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            RouterManager.router.navigateTo(
+              context,
+              '${RouterManager.detialPage}?id=${e['goodsId']}',
+            );
+          },
           child: Container(
             width: 372.w,
             color: Colors.white,
