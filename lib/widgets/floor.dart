@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:flutter_shop/routes/router_manager.dart';
 
 class FloorTitle extends StatelessWidget {
   final String floorTitleImgUrl;
@@ -23,19 +24,22 @@ class FloorContent extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          _firstRow(),
-          _otherGoods(),
+          _firstRow(context),
+          _otherGoods(context),
         ],
       ),
     );
   }
 
-  Widget _goodsItem(Map goods) {
+  Widget _goodsItem(BuildContext context, Map goods) {
     return Container(
       width: 375.w,
       child: InkWell(
         onTap: () {
-          print('点击了楼层商品');
+          RouterManager.router.navigateTo(
+            context,
+            '${RouterManager.detialPage}?id=${goods['goodsId']}',
+          );
         },
         child: Image.network(
           goods['image'],
@@ -44,25 +48,25 @@ class FloorContent extends StatelessWidget {
     );
   }
 
-  Widget _firstRow() {
+  Widget _firstRow(BuildContext context) {
     return Row(
       children: [
-        _goodsItem(floorGoodsList[0]),
+        _goodsItem(context, floorGoodsList[0]),
         Column(
           children: [
-            _goodsItem(floorGoodsList[1]),
-            _goodsItem(floorGoodsList[2]),
+            _goodsItem(context, floorGoodsList[1]),
+            _goodsItem(context, floorGoodsList[2]),
           ],
         )
       ],
     );
   }
 
-  Widget _otherGoods() {
+  Widget _otherGoods(BuildContext context) {
     return Row(
       children: [
-        _goodsItem(floorGoodsList[3]),
-        _goodsItem(floorGoodsList[4]),
+        _goodsItem(context, floorGoodsList[3]),
+        _goodsItem(context, floorGoodsList[4]),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:flutter_shop/routes/router_manager.dart';
 
 class Recommend extends StatelessWidget {
   final List recommendList;
@@ -9,7 +10,7 @@ class Recommend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 380.h,
+      height: 430.h,
       margin: EdgeInsets.only(top: 10.0),
       child: Column(
         children: [
@@ -42,11 +43,16 @@ class Recommend extends StatelessWidget {
     );
   }
 
-  Widget _item(index) {
+  Widget _item(BuildContext context, index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        RouterManager.router.navigateTo(
+          context,
+          '${RouterManager.detialPage}?id=${recommendList[index]['goodsId']}',
+        );
+      },
       child: Container(
-        height: 330.h,
+        height: 380.h,
         width: 250.w,
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -78,9 +84,9 @@ class Recommend extends StatelessWidget {
 
   Widget _recommendList() {
     return Container(
-      height: 330.h,
+      height: 380.h,
       child: ListView.builder(
-        itemBuilder: (context, index) => _item(index),
+        itemBuilder: (context, index) => _item(context, index),
         scrollDirection: Axis.horizontal,
         itemCount: recommendList.length,
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/provider/goods_detail.dart';
+import 'package:flutter_shop/widgets/detail/detail_top_area.dart';
 import 'package:provider/provider.dart';
 
 // class DetailPage extends StatefulWidget {
@@ -78,7 +79,9 @@ class DetailPage extends StatelessWidget {
             if (snapshot.hasData) {
               return Container(
                 child: Column(
-                  children: [],
+                  children: [
+                    DetailTopArea(),
+                  ],
                 ),
               );
             } else {
@@ -91,8 +94,11 @@ class DetailPage extends StatelessWidget {
   }
 
   Future _getGoods(BuildContext context) async {
-    await context.read<GoodsDetailProvider>().requestGoodsDetail(id);
-    print(context.read<GoodsDetailProvider>().goods.toString());
+    ///context.read<GoodsDetailProvider>().requestGoodsDetail(id);
+    await Provider.of<GoodsDetailProvider>(
+      context,
+      listen: false,
+    ).requestGoodsDetail(id);
     return '加载完成';
   }
 }

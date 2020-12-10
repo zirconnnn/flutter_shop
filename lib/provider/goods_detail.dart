@@ -7,9 +7,9 @@ import 'package:flutter_shop/service/service_method.dart';
 
 class GoodsDetailProvider with ChangeNotifier {
   GoodsDetailBean goods;
-  requestGoodsDetail(String id) {
+  requestGoodsDetail(String id) async {
     var formData = {'goodId': id};
-    request(
+    await request(
       getGoodDetailById,
       formData: formData,
     ).then((value) {

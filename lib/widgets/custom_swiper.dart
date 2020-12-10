@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/routes/router_manager.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
@@ -22,6 +23,12 @@ class CustomSwiper extends StatelessWidget {
         pagination: SwiperPagination(),
         // control: SwiperControl(),
         autoplay: true,
+        onTap: (index) {
+          RouterManager.router.navigateTo(
+            context,
+            '${RouterManager.detialPage}?id=${swiperDataList[index]['goodsId']}',
+          );
+        },
       ),
     );
   }
