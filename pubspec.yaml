@@ -36,6 +36,7 @@ dependencies:
   provider: ^4.3.2+2
   fluttertoast: ^7.1.4
   fluro: ^1.7.8
+  flutter_html: ^1.1.0
 
 dev_dependencies:
   flutter_test:

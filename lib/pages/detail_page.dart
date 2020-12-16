@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/provider/goods_detail.dart';
+import 'package:flutter_shop/widgets/detail/detail_bottom.dart';
+import 'package:flutter_shop/widgets/detail/detail_comments.dart';
+import 'package:flutter_shop/widgets/detail/detail_instructions.dart';
+import 'package:flutter_shop/widgets/detail/detail_tab_bar.dart';
 import 'package:flutter_shop/widgets/detail/detail_top_area.dart';
+import 'package:flutter_shop/widgets/detail/detail_web.dart';
 import 'package:provider/provider.dart';
 
 // class DetailPage extends StatefulWidget {
@@ -77,12 +82,24 @@ class DetailPage extends StatelessWidget {
           future: _getGoods(context),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Container(
-                child: Column(
-                  children: [
-                    DetailTopArea(),
-                  ],
-                ),
+              return Stack(
+                children: [
+                  Container(
+                    child: ListView(
+                      children: [
+                        DetailTopArea(),
+                        DetailInstructions(),
+                        DetailTabBar(),
+                        // DetailComments(),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: DetailBottom(),
+                  )
+                ],
               );
             } else {
               return Text('加载中...');
