@@ -37,6 +37,7 @@ dependencies:
   fluttertoast: ^7.1.4
   fluro: ^1.7.8
   flutter_html: ^1.1.0
+  rxdart: ^0.25.0
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'home_page.dart';
 import 'category_page.dart';
 import 'cart_page.dart';
-import 'member_page.dart';
+import 'member_page_2.dart';
 
 class IndexPage extends StatefulWidget {
   IndexPage({Key key}) : super(key: key);
